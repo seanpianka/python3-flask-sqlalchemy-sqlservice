@@ -5,7 +5,7 @@ import sqlservice
 
 
 app = Flask(__name__)
-app.config.from_object('config')
+app.config.from_object("config")
 
 
 def as_dict(self, *exclude):
@@ -35,14 +35,11 @@ class Advisor(BaseModel):
 
 
 db = sqlservice.SQLClient(
-    {
-        "SQL_DATABASE_URI": app.config["SQLALCHEMY_DATABASE_URI"]
-    },
-    model_class=BaseModel,
+    {"SQL_DATABASE_URI": app.config["SQLALCHEMY_DATABASE_URI"]}, model_class=BaseModel
 )
 
 
-@app.route('/')
+@app.route("/")
 def index():
     advisors = [a.as_dict() for a in db.query(Advisor).all()]
-    return f'<html><body>{advisors}</body></html>'
+    return f"<html><body>{advisors}</body></html>"
